@@ -23,10 +23,10 @@ function setup() {
         if (window.globalObject.drizzle.store.getState().drizzleStatus.initialized) {
             //cada vez que cambia algo, actualizo el objeto con el estado
             window.globalObject.drizzleState = drizzleState;
-            return("Estado actualizado");
+            console.log("Estado actualizado");
         }
     });
-    return "S¡etup finalizado";
+    return "Fin de la configuración";
 }
 
 function getKey() {
