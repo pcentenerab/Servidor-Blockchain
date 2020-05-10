@@ -1,7 +1,5 @@
-var globalObject;
-
 function setup() {
-    globalObject = {
+    window.globalObject = {
         drizzle: [],
         drizzleState: {},
         account: ''
@@ -18,61 +16,62 @@ function setup() {
     };
 
     // setup the drizzle store and drizzle
-    globalObject.drizzle = new Drizzle.Drizzle(options);
+    window.globalObject.drizzle = new Drizzle.Drizzle(options);
     
-    globalObject.drizzle.store.subscribe(() => {
-        const drizzleState = globalObject.drizzle.store.getState();
-        if (globalObject.drizzle.store.getState().drizzleStatus.initialized) {
+    window.globalObject.drizzle.store.subscribe(() => {
+        const drizzleState = window.globalObject.drizzle.store.getState();
+        if (window.globalObject.drizzle.store.getState().drizzleStatus.initialized) {
             //cada vez que cambia algo, actualizo el objeto con el estado
-            globalObject.drizzleState = drizzleState;
+            window.globalObject.drizzleState = drizzleState;
             return("Estado actualizado");
         }
     });
+    return "S¡etup finalizado";
 }
 
 function getKey() {
-    if (globalObject.drizzleState.drizzleStatus.initialized) {
-        let key = globalObject.drizzle.contracts.Contador.methods.valor.cacheCall();
+    if (window.globalObject.drizzleState.drizzleStatus.initialized) {
+        let key = window.globalObject.drizzle.contracts.Contador.methods.valor.cacheCall();
         return("Mensaje recibido: La clave es "+key);
     } else {
-        let string = JSON.stringify(globalObject.drizzleState)
+        let string = JSON.stringify(window.globalObject.drizzleState)
         return("No inicializado. Drizzle state: "+string);
     }
 }
 
 function getValue(key) {
-    if (globalObject.drizzleState.drizzleStatus.initialized) {
-        let valor = globalObject.drizzleState.contracts.Contador.valor[key].value;
+    if (window.globalObject.drizzleState.drizzleStatus.initialized) {
+        let valor = window.globalObject.drizzleState.contracts.Contador.valor[key].value;
         return("Mensaje recibido: El valor es "+valor);
     } else {
-        let string = JSON.stringify(globalObject.drizzleState)
+        let string = JSON.stringify(window.globalObject.drizzleState)
         return("No inicializado. Drizzle state: "+string);
     }
 }
 
 function incr() {
-    if (globalObject.drizzleState.drizzleStatus.initialized) {
-        globalObject.drizzle.contracts.Contador.methods.incr.cacheSend({from: globalObject.drizzleState.accounts[0]});
+    if (window.globalObject.drizzleState.drizzleStatus.initialized) {
+        window.globalObject.drizzle.contracts.Contador.methods.incr.cacheSend({from: window.globalObject.drizzleState.accounts[0]});
     } else {
-        let string = JSON.stringify(globalObject.drizzleState)
+        let string = JSON.stringify(window.globalObject.drizzleState)
         return("No inicializado. Drizzle state: "+string);
     }
 }
 
 function decr() {
-    if (globalObject.drizzleState.drizzleStatus.initialized) {
-        globalObject.drizzle.contracts.Contador.methods.decr.cacheSend({from: globalObject.drizzleState.accounts[0]});
+    if (window.globalObject.drizzleState.drizzleStatus.initialized) {
+        window.globalObject.drizzle.contracts.Contador.methods.decr.cacheSend({from: window.globalObject.drizzleState.accounts[0]});
     } else {
-        let string = JSON.stringify(globalObject.drizzleState)
+        let string = JSON.stringify(window.globalObject.drizzleState)
         return("No inicializado. Drizzle state: "+string);
     }
 }
 
 function reset() {
-    if (globalObject.drizzleState.drizzleStatus.initialized) {
-        globalObject.drizzle.contracts.Contador.methods.reset.cacheSend({from: globalObject.drizzleState.accounts[0]});
+    if (window.globalObject.drizzleState.drizzleStatus.initialized) {
+        window.globalObject.drizzle.contracts.Contador.methods.reset.cacheSend({from: window.globalObject.drizzleState.accounts[0]});
     } else {
-        let string = JSON.stringify(globalObject.drizzleState)
+        let string = JSON.stringify(window.globalObject.drizzleState)
         return("No inicializado. Drizzle state: "+string);
     }
 }
