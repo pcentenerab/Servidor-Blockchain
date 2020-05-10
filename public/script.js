@@ -1,6 +1,3 @@
-import { Drizzle } from 'drizzle';
-import Contador from './Contador.js'
-
 var globalObject;
 
 function setup() {
