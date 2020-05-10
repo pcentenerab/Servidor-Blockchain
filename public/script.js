@@ -4,6 +4,7 @@ function setup() {
         drizzleState: {},
         account: ''
     }
+    
     // let drizzle know what contract we want
     const options = {
         contracts: [ Contador ],
