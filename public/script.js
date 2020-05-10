@@ -24,6 +24,9 @@ function setup() {
             //cada vez que cambia algo, actualizo el objeto con el estado
             window.globalObject.drizzleState = drizzleState;
             console.log("Estado actualizado");
+            if (typeof webkit !== 'undefined') {
+                webkit.messageHandlers.didFetchValue.postMessage("Estado actualizado");
+            }
         }
     });
     return "Fin de la configuración";
@@ -52,6 +55,7 @@ function getValue(key) {
 function incr() {
     if (window.globalObject.drizzleState.drizzleStatus.initialized) {
         window.globalObject.drizzle.contracts.Contador.methods.incr.cacheSend({from: window.globalObject.drizzleState.accounts[0]});
+        return "Incrementando valor";
     } else {
         let string = JSON.stringify(window.globalObject.drizzleState)
         return("No inicializado. Drizzle state: "+string);
@@ -61,6 +65,7 @@ function incr() {
 function decr() {
     if (window.globalObject.drizzleState.drizzleStatus.initialized) {
         window.globalObject.drizzle.contracts.Contador.methods.decr.cacheSend({from: window.globalObject.drizzleState.accounts[0]});
+        return "Decrementando valor";
     } else {
         let string = JSON.stringify(window.globalObject.drizzleState)
         return("No inicializado. Drizzle state: "+string);
@@ -70,6 +75,7 @@ function decr() {
 function reset() {
     if (window.globalObject.drizzleState.drizzleStatus.initialized) {
         window.globalObject.drizzle.contracts.Contador.methods.reset.cacheSend({from: window.globalObject.drizzleState.accounts[0]});
+        return "Restableciendo valor";
     } else {
         let string = JSON.stringify(window.globalObject.drizzleState)
         return("No inicializado. Drizzle state: "+string);
