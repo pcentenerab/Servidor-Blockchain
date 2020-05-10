@@ -18,7 +18,7 @@ function setup() {
     };
 
     // setup the drizzle store and drizzle
-    globalObject.drizzle = new Drizzle(options);
+    globalObject.drizzle = new Drizzle.Drizzle(options);
     
     globalObject.drizzle.store.subscribe(() => {
         const drizzleState = globalObject.drizzle.store.getState();
